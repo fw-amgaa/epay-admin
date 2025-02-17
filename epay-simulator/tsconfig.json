@@ -1,5 +1,5 @@
 {
-  "extends": "../../tsconfig.base.json",
+  "extends": "../tsconfig.base.json",
   "compilerOptions": {
     "jsx": "preserve",
     "strict": true,
@@ -34,8 +34,8 @@
     "**/*.tsx",
     "**/*.js",
     "**/*.jsx",
-    "../../apps/epay-admin/.next/types/**/*.ts",
-    "../../dist/apps/epay-admin/.next/types/**/*.ts",
+    "../epay-simulator/.next/types/**/*.ts",
+    "../dist/epay-simulator/.next/types/**/*.ts",
     "next-env.d.ts",
     ".next/types/**/*.ts"
   ],
