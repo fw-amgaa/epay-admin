@@ -20,7 +20,7 @@ export const Menu = ({ label, menuItems }: Props) => {
       <SidebarMenu>
         {menuItems.map(({ key, children, list, meta }) => {
           const isSelected = key === selectedKey;
-          const Icon: React.ReactElement = meta?.icon ? cloneElement(meta?.icon as any, { color: isSelected ? "#e04e61" : "" }) : <></>
+          const Icon: React.ReactElement = meta?.icon ? cloneElement(meta?.icon as any, { color: isSelected ? "#e04e61" : "#3F3F46" }) : <></>
 
           if (!list) {
             return <Collapsible

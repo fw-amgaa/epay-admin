@@ -126,10 +126,10 @@ const App = (props: React.PropsWithChildren<AppProps>) => {
             },
             {
               name: "Гүйлгээний мэдээлэл",
-              list: "/categories",
-              create: "/categories/create",
-              edit: "/categories/edit/:id",
-              show: "/categories/show/:id",
+              list: "/transactions",
+              create: "/transactions/create",
+              edit: "/transactions/edit/:id",
+              show: "/transactions/show/:id",
               meta: {
                 canDelete: true,
                 label: "Гүйлгээний мэдээлэл",
