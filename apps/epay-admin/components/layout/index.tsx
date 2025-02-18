@@ -1,17 +1,20 @@
 "use client";
 
 import type { PropsWithChildren } from "react";
-import { Breadcrumb } from "../breadcrumb";
-import { Menu } from "../menu";
+import { SidebarInset, SidebarProvider } from "../ui/sidebar";
+import { AppSidebar } from "./sidebar";
+import { Header } from "./header";
 
 export const Layout: React.FC<PropsWithChildren> = ({ children }) => {
   return (
-    <div className="layout">
-      <Menu />
-      <div className="content">
-        <Breadcrumb />
-        <div>{children}</div>
-      </div>
-    </div>
+    <SidebarProvider>
+      <AppSidebar />
+      <SidebarInset>
+        <Header />
+        <div className="flex gap-4 p-4">
+          {children}
+        </div>
+      </SidebarInset>
+    </SidebarProvider>
   );
 };

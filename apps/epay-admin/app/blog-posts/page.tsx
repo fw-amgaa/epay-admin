@@ -133,7 +133,7 @@ export default function BlogPostList() {
   }));
 
   return (
-    <div style={{ padding: "16px" }}>
+    <div className="p-10" style={{ padding: "16px" }}>
       <div
         style={{
           display: "flex",

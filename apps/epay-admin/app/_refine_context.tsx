@@ -8,9 +8,9 @@ import React from "react";
 
 import routerProvider from "@refinedev/nextjs-router";
 
+import { Layout } from "@/components/layout";
 import { dataProvider } from "@/providers/data-provider";
-import "@/styles/global.css";
-import Dashboard from "./dashboard";
+import { ChartPieIcon, DockIcon, ListCheckIcon, LockKeyholeOpen, PercentIcon, PlugIcon, User, UserCircle2Icon } from "lucide-react";
 
 type RefineContextProps = {};
 
@@ -29,10 +29,6 @@ type AppProps = {};
 const App = (props: React.PropsWithChildren<AppProps>) => {
   const { data, status } = useSession();
   const to = usePathname();
-
-  if (status === "loading") {
-    return <span>loading...</span>;
-  }
 
   const authProvider: AuthProvider = {
     login: async () => {
@@ -110,6 +106,9 @@ const App = (props: React.PropsWithChildren<AppProps>) => {
               show: "/blog-posts/show/:id",
               meta: {
                 canDelete: true,
+                label: "Систем холболт",
+                icon: <PlugIcon />,
+                group: 'system'
               },
             },
             {
@@ -120,6 +119,150 @@ const App = (props: React.PropsWithChildren<AppProps>) => {
               show: "/categories/show/:id",
               meta: {
                 canDelete: true,
+                label: "Хүсэлтийн жагсаалт",
+                icon: <ListCheckIcon />,
+                group: 'system'
+              },
+            },
+            {
+              name: "Гүйлгээний мэдээлэл",
+              list: "/categories",
+              create: "/categories/create",
+              edit: "/categories/edit/:id",
+              show: "/categories/show/:id",
+              meta: {
+                canDelete: true,
+                label: "Гүйлгээний мэдээлэл",
+                icon: <DockIcon />,
+                group: 'system'
+              },
+            },
+            {
+              name: "Шимтгэл удирдлага",
+              meta: {
+                label: "Шимтгэл удирдлага",
+                icon: <PercentIcon />,
+                group: 'system'
+              }
+            },
+            {
+              name: "Шимтгэл тохиргоо",
+              list: "/categories",
+              create: "/categories/create",
+              edit: "/categories/edit/:id",
+              show: "/categories/show/:id",
+              meta: {
+                canDelete: true,
+                label: "Шимтгэл тохиргоо",
+                parent: "Шимтгэл удирдлага",
+                group: 'system'
+              },
+            },
+            {
+              name: "Шимтгэл тооцоолол",
+              list: "/categories",
+              create: "/categories/create",
+              edit: "/categories/edit/:id",
+              show: "/categories/show/:id",
+              meta: {
+                canDelete: true,
+                label: "Шимтгэл тооцоолол",
+                parent: "Шимтгэл удирдлага",
+                group: 'system'
+              },
+            },
+            {
+              name: "Харилцагч удирдлага",
+              meta: {
+                label: "Харилцагч удирдлага",
+                icon: <UserCircle2Icon />,
+                group: 'system'
+              }
+            },
+            {
+              name: "Харилцагч",
+              list: "/categories",
+              create: "/categories/create",
+              edit: "/categories/edit/:id",
+              show: "/categories/show/:id",
+              meta: {
+                parent: "Харилцагч удирдлага",
+                label: "Харилцагч",
+                canDelete: true,
+                group: 'system'
+              },
+            },
+            {
+              name: "Хэрэглэгч",
+              list: "/categories",
+              create: "/categories/create",
+              edit: "/categories/edit/:id",
+              show: "/categories/show/:id",
+              meta: {
+                parent: "Харилцагч удирдлага",
+                label: "Хэрэглэгч",
+                canDelete: true,
+                group: 'system'
+              },
+            },
+            {
+              name: "Тайлан",
+              meta: {
+                label: "Тайлан",
+                icon: <ChartPieIcon />,
+                group: 'system'
+              }
+            },
+            {
+              name: "Харилцагчийн шимтгэл тооцоо нэхэмжлэх тайлан",
+              list: "/categories",
+              create: "/categories/create",
+              edit: "/categories/edit/:id",
+              show: "/categories/show/:id",
+              meta: {
+                parent: "Тайлан",
+                label: "Харилцагчийн шимтгэл тооцоо нэхэмжлэх тайлан",
+                canDelete: true,
+                group: 'system'
+              },
+            },
+            {
+              name: "ePay-ийн баталгаажуулах тайлан",
+              list: "/categories",
+              create: "/categories/create",
+              edit: "/categories/edit/:id",
+              show: "/categories/show/:id",
+              meta: {
+                parent: "Тайлан",
+                label: "ePay-ийн баталгаажуулах тайлан",
+                canDelete: true,
+                group: 'system'
+              },
+            },
+            {
+              name: "system_users",
+              list: "/categories",
+              create: "/categories/create",
+              edit: "/categories/edit/:id",
+              show: "/categories/show/:id",
+              meta: {
+                label: "Систем хэрэглэгч",
+                canDelete: true,
+                icon: <User />,
+                group: 'user'
+              },
+            },
+            {
+              name: "user_access",
+              list: "/categories",
+              create: "/categories/create",
+              edit: "/categories/edit/:id",
+              show: "/categories/show/:id",
+              meta: {
+                label: "Хандах эрх",
+                canDelete: true,
+                icon: <LockKeyholeOpen />,
+                group: 'user'
               },
             },
           ]}
@@ -129,10 +272,8 @@ const App = (props: React.PropsWithChildren<AppProps>) => {
             useNewQueryKeys: true,
           }}
         >
-          <Dashboard />
-            {/* {props.children} */}
-          {/* </Dashboard> */}
-        </Refine> 
+          {props.children}
+        </Refine>
       </RefineKbarProvider>
     </>
   );
