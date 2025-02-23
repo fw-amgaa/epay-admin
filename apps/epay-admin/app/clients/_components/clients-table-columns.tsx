@@ -26,6 +26,7 @@ import {
 
 import { getStatusIcon } from "../_lib/utils";
 import { Client } from "../_lib/types";
+import { cn } from "@/lib/utils";
 
 interface GetColumnsProps {
   setRowAction: React.Dispatch<
@@ -136,9 +137,7 @@ export function getColumns({
         <DataTableColumnHeader column={column} title="Status" />
       ),
       cell: ({ row }) => {
-        const status = [true, false].find(
-          (status) => status === row.original.status,
-        );
+        const status = row.original.status ? 'active' : 'inactive'
 
         if (!status) return null;
 
@@ -147,10 +146,10 @@ export function getColumns({
         return (
           <div className="flex w-[6.25rem] items-center">
             <Icon
-              className="mr-2 size-4 text-muted-foreground"
+              className={cn('mr-2 size-4 text-muted-foreground', row.original.status ? 'text-success' : 'text-destructive')}
               aria-hidden="true"
             />
-            <span className="capitalize">{status}</span>
+            <span className={cn('capitalize', row.original.status ? 'text-success' : 'text-destructive')}>{status}</span>
           </div>
         );
       },

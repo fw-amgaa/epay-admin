@@ -14,10 +14,10 @@ import {
  * @param status - The status of the task.
  * @returns A React component representing the status icon.
  */
-export function getStatusIcon(status: any["status"]) {
+export function getStatusIcon(status: 'inactive' | 'active') {
   const statusIcons = {
-    canceled: CircleX,
-    done: CheckCircle2,
+    inactive: CircleX,
+    active: CheckCircle2,
     "in-progress": Timer,
     todo: CircleHelp,
   };
