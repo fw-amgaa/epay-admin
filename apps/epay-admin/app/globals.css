@@ -14,7 +14,7 @@ body {
     --card-foreground: 0 0% 3.9%;
     --popover: 0 0% 100%;
     --popover-foreground: 0 0% 3.9%;
-    --primary: #e04e61;
+    --primary: 352.2,70.2%,59.2%;
     --primary-foreground: 0 0% 98%;
     --secondary: 0 0% 96.1%;
     --secondary-foreground: 0 0% 9%;
@@ -81,6 +81,17 @@ body {
 @layer base {
   * {
     @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
   }
   body {
     @apply bg-background text-foreground;

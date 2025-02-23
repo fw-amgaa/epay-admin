@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import { Suspense } from "react";
 import { RefineContext } from "./_refine_context";
 import "./globals.css";
 import { Layout } from "@/components/layout";
