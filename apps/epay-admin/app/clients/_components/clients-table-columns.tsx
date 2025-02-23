@@ -4,6 +4,7 @@ import type { DataTableRowAction } from "@/types";
 import type { ColumnDef } from "@tanstack/react-table";
 import { Ellipsis } from "lucide-react";
 import * as React from "react";
+import moment from 'moment'
 
 import { DataTableColumnHeader } from "@/components/data-table/data-table-column-header";
 import { Badge } from "@/components/ui/badge";
@@ -63,7 +64,7 @@ export function getColumns({
     {
       accessorKey: "id",
       header: ({ column }) => (
-        <DataTableColumnHeader column={column} title="Task" />
+        <DataTableColumnHeader column={column} title="Id" />
       ),
       cell: ({ row }) => <div className="w-20">{row.getValue("id")}</div>,
       enableSorting: false,
@@ -72,7 +73,7 @@ export function getColumns({
     {
       accessorKey: "name",
       header: ({ column }) => (
-        <DataTableColumnHeader column={column} title="name" />
+        <DataTableColumnHeader column={column} title="Name" />
       ),
       cell: ({ row }) => {
         const label = ['opt1, opt2'].find(
@@ -84,6 +85,46 @@ export function getColumns({
             {label && <Badge variant="outline">{label}</Badge>}
             <span className="max-w-[31.25rem] truncate font-medium">
               {row.getValue("name")}
+            </span>
+          </div>
+        );
+      },
+    },
+    {
+      accessorKey: "created_at",
+      header: ({ column }) => (
+        <DataTableColumnHeader column={column} title="Created at" />
+      ),
+      cell: ({ row }) => {
+        const label = ['opt1, opt2'].find(
+          (label) => label === row.original.created_at,
+        );
+
+        return (
+          <div className="flex space-x-2">
+            {label && <Badge variant="outline">{label}</Badge>}
+            <span className="max-w-[31.25rem] truncate font-medium">
+              {moment(row.getValue("created_at")).format('YYYY/MM/DD HH:mm')}
+            </span>
+          </div>
+        );
+      },
+    },
+    {
+      accessorKey: "address",
+      header: ({ column }) => (
+        <DataTableColumnHeader column={column} title="Address" />
+      ),
+      cell: ({ row }) => {
+        const label = ['opt1, opt2'].find(
+          (label) => label === row.original.address,
+        );
+
+        return (
+          <div className="flex space-x-2">
+            {label && <Badge variant="outline">{label}</Badge>}
+            <span className="max-w-[31.25rem] truncate font-medium">
+              {row.getValue("address")}
             </span>
           </div>
         );
@@ -115,6 +156,44 @@ export function getColumns({
       },
       filterFn: (row, id, value) => {
         return Array.isArray(value) && value.includes(row.getValue(id));
+      },
+    },
+    {
+      accessorKey: "bic",
+      header: ({ column }) => (
+        <DataTableColumnHeader column={column} title="BIC" />
+      ),
+      cell: ({ row }) => {
+        const label = ['opt1, opt2'].find(
+          (label) => label === row.original.code,
+        );
+
+        return (
+          <div className="flex space-x-2">
+            {label && <Badge variant="outline">{label}</Badge>}
+            <span className="max-w-[31.25rem] truncate font-medium">
+              {row.getValue("bic")}
+            </span>
+          </div>
+        );
+      },
+    },
+    {
+      accessorKey: "code",
+      header: ({ column }) => (
+        <DataTableColumnHeader column={column} title="Code" />
+      ),
+      cell: ({ row }) => {
+        const label = ['opt1, opt2'].find(
+          (label) => label === row.original.code,
+        );
+
+        return (
+          <div className="flex space-x-2">
+            {label && <Badge variant="outline">{label}</Badge>}
+            <Badge variant="outline">{row.getValue("code")}</Badge>
+          </div>
+        );
       },
     },
     // {

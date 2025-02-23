@@ -19,21 +19,21 @@ export const Menu = ({ label, menuItems }: Props) => {
       <SidebarGroupLabel>{label}</SidebarGroupLabel>
       <SidebarMenu>
         {menuItems.map(({ key, children, list, meta }) => {
-          const isSelected = key === selectedKey;
+          const isSelected = key === selectedKey || !!children.find((child) => child.key === selectedKey);
           const Icon: React.ReactElement = meta?.icon ? cloneElement(meta?.icon as any, { color: isSelected ? "#e04e61" : "#3F3F46" }) : <></>
 
           if (!list) {
             return <Collapsible
               key={meta?.label}
               asChild
-              defaultOpen={false}
+              defaultOpen={isSelected}
               className="group/collapsible"
             >
               <SidebarMenuItem>
                 <CollapsibleTrigger asChild>
                   <SidebarMenuButton isActive={isSelected} tooltip={meta?.label}>
                     {Icon}
-                    <span>{meta?.label}</span>
+                    <span className={isSelected ? "text-primary" : ''}>{meta?.label}</span>
                     <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
                   </SidebarMenuButton>
                 </CollapsibleTrigger>
@@ -45,7 +45,7 @@ export const Menu = ({ label, menuItems }: Props) => {
                         <SidebarMenuSubItem key={child.meta?.label}>
                           <SidebarMenuSubButton isActive={isSelected} asChild>
                             <a href={child.list as string}>
-                              <span>{child.meta?.label}</span>
+                              <span className={isSelected ? "text-primary" : ''}>{child.meta?.label}</span>
                             </a>
                           </SidebarMenuSubButton>
                         </SidebarMenuSubItem>
@@ -61,7 +61,7 @@ export const Menu = ({ label, menuItems }: Props) => {
             <SidebarMenuButton isActive={isSelected} asChild>
               <a href={list as string}>
                 {Icon}
-                <span className={isSelected ? "text-[#e04e61]" : ''}>{meta?.label}</span>
+                <span className={isSelected ? "text-primary" : ''}>{meta?.label}</span>
               </a>
             </SidebarMenuButton>
           </SidebarMenuItem>
