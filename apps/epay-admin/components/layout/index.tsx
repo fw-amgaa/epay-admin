@@ -11,7 +11,7 @@ export const Layout: React.FC<PropsWithChildren> = ({ children }) => {
       <AppSidebar />
       <SidebarInset>
         <Header />
-        <div className="flex gap-4 p-4">
+        <div className="flex gap-4 pt-0 p-4">
           {children}
         </div>
       </SidebarInset>
