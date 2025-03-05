@@ -32,6 +32,7 @@ export const dataProvider = (url: string): DataProvider => ({
                 "X-API-KEY": "b05a38f2-6235-4cd8-b756-e0d851769975",
             },
     });
+    console.log("getList", response, resource);
     const data = await response.json();
 
         return {

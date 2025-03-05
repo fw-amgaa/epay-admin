@@ -1,6 +1,6 @@
 import { ResourceProps } from "@refinedev/core"
 import {
-  ChartPieIcon, DockIcon, ListCheckIcon, LockKeyholeOpen, PercentIcon, PlugIcon, User, UserCircle2Icon
+  ChartPieIcon, DockIcon, ListCheckIcon, LockKeyholeOpen, PercentIcon, PlugIcon, User, UserCircle2Icon, Cat
 } from "lucide-react";
 
 const resources: ResourceProps[] = [
@@ -12,8 +12,8 @@ const resources: ResourceProps[] = [
     show: "/blog-posts/show/:id",
     meta: {
       canDelete: true,
-      label: "Систем холболт",
-      icon: <PlugIcon />,
+      label: "Blog Posts",
+      icon: <Cat />,
       group: 'system'
     },
   },
@@ -23,6 +23,26 @@ const resources: ResourceProps[] = [
     create: "/categories/create",
     edit: "/categories/edit/:id",
     show: "/categories/show/:id",
+    meta: {
+      canDelete: true,
+      label: "Categories",
+      icon: <Cat />,
+      group: 'system'
+    },
+  },
+  {
+    name: "Систем холболт",
+    list: "/connection",
+    meta: {
+      canDelete: true,
+      label: "Систем холболт",
+      icon: <PlugIcon />,
+      group: 'system'
+    },
+  },
+  {
+    name: "Хүсэлтийн жагсаалт",
+    list: "/messages",
     meta: {
       canDelete: true,
       label: "Хүсэлтийн жагсаалт",
@@ -53,10 +73,7 @@ const resources: ResourceProps[] = [
   },
   {
     name: "Шимтгэл тохиргоо",
-    list: "/categories",
-    create: "/categories/create",
-    edit: "/categories/edit/:id",
-    show: "/categories/show/:id",
+    list: "/fee/settings",
     meta: {
       canDelete: true,
       label: "Шимтгэл тохиргоо",
@@ -66,10 +83,7 @@ const resources: ResourceProps[] = [
   },
   {
     name: "Шимтгэл тооцоолол",
-    list: "/categories",
-    create: "/categories/create",
-    edit: "/categories/edit/:id",
-    show: "/categories/show/:id",
+    list: "/fee/calculation",
     meta: {
       canDelete: true,
       label: "Шимтгэл тооцоолол",
@@ -100,10 +114,10 @@ const resources: ResourceProps[] = [
   },
   {
     name: "Хэрэглэгч",
-    list: "/categories",
-    create: "/categories/create",
-    edit: "/categories/edit/:id",
-    show: "/categories/show/:id",
+    list: "/clients",
+    create: "/clients/create",
+    edit: "/clients/edit/:id",
+    show: "/clients/show/:id",
     meta: {
       parent: "Харилцагч удирдлага",
       label: "Хэрэглэгч",
@@ -121,10 +135,7 @@ const resources: ResourceProps[] = [
   },
   {
     name: "Харилцагчийн шимтгэл тооцоо нэхэмжлэх тайлан",
-    list: "/reports",
-    create: "/reports/create",
-    edit: "/reports/edit/:id",
-    show: "/reports/show/:id",
+    list: "/reports/monthly-bill",
     meta: {
       parent: "Тайлан",
       label: "Харилцагчийн шимтгэл тооцоо нэхэмжлэх тайлан",
@@ -134,13 +145,20 @@ const resources: ResourceProps[] = [
   },
   {
     name: "ePay-ийн баталгаажуулах тайлан",
-    list: "/categories",
-    create: "/categories/create",
-    edit: "/categories/edit/:id",
-    show: "/categories/show/:id",
+    list: "/reports/reconcilation",
     meta: {
       parent: "Тайлан",
       label: "ePay-ийн баталгаажуулах тайлан",
+      canDelete: true,
+      group: 'system'
+    },
+  },
+  {
+    name: "ePay нэгдсэн хаалтын тайлан",
+    list: "/reports/net-settlement",
+    meta: {
+      parent: "Тайлан",
+      label: "ePay нэгдсэн хаалтын тайлан",
       canDelete: true,
       group: 'system'
     },

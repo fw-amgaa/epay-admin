@@ -115,26 +115,27 @@ export default function BlogPostList() {
     columns,
   });
 
-  const { data: categoryData } = useMany({
-    resource: "categories",
-    ids:
-      tableData?.data?.map((item) => item?.category?.id).filter(Boolean) ?? [],
-    queryOptions: {
-      enabled: !!tableData?.data,
-    },
-  });
+  //const { data: categoryData } = useMany({
+  //  resource: "categories",
+  //  ids:
+  //    tableData?.data?.map((item) => item?.category?.id).filter(Boolean) ?? [],
+  //  queryOptions: {
+  //    enabled: !!tableData?.data,
+  //  },
+  //});
 
   setOptions((prev) => ({
     ...prev,
     meta: {
       ...prev.meta,
-      categoryData,
+      //categoryData,
     },
   }));
 
   return (
     <div className="p-10" style={{ padding: "16px" }}>
-      <div
+      blog post
+      {/*<div
         style={{
           display: "flex",
           alignItems: "center",
@@ -222,7 +223,7 @@ export default function BlogPostList() {
             </option>
           ))}
         </select>
-      </div>
+      </div>*/}
     </div>
   );
 }

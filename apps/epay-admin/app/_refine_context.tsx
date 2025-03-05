@@ -90,7 +90,7 @@ const App = (props: React.PropsWithChildren<AppProps>) => {
     },
   };
 
-  const API_URL = "http://localhost:3040/api";
+  const API_URL = "https://dev-switch.epayment.mn";
 
   return (
     <>
