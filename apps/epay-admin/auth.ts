@@ -1,19 +1,74 @@
 import NextAuth from "next-auth";
-import Auth0Provider from "next-auth/providers/auth0";
-import GitHub from "next-auth/providers/github";
-import Google from "next-auth/providers/google";
+import CredentialsProvider from "next-auth/providers/credentials";
+import { object, string, z } from "zod";
+import { authError } from "./lib/constants";
+
+export const signInSchema = object({
+  identifier: string(),
+  password: string(),
+});
+
+export type SignInSchema = z.infer<typeof signInSchema>;
 
 export const { auth, handlers, signIn, signOut } = NextAuth({
   providers: [
-    GitHub,
-    Google,
-    // !!! Should be stored in .env file.
-    Auth0Provider({
-      clientId: "AcinJvjWp1Dr41gPcJeQ20r5vcsteks4",
-      clientSecret:
-        "y3pj2KaTiNgING-5e8_JYmX_bIQSwvkp_XgDcA75sEPSSB2zmi0n-3UoTfH0pOTP",
-      issuer: "https://dev-y38p834gjptooc4g.us.auth0.com",
+    CredentialsProvider({
+      id: "credentials",
+      type: "credentials",
+      credentials: {  
+        identifier: {
+          label: "Identifier",
+          type: "email",
+        },
+        password: {
+          label: "Password",
+          type: "password",
+        }, 
+      },
+      async authorize(credentials) {
+        const { identifier, password } = await signInSchema.parseAsync(credentials);
+
+        const response = await fetch(process.env.API_URL! + '/auth/local', {
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          method: "POST",
+          body: JSON.stringify({ identifier, password })
+        })
+
+        if (response.status !== 200) {
+          return { error: authError };
+        }
+
+        const body = await response.json()
+
+        return { ...body.user, jwt: body.jwt };
+      },
     }),
+    
   ],
+  callbacks: {
+    async signIn({ user }: any) {
+      if (user?.error === authError) {
+         throw new Error('custom error to the client')
+      }
+      return true
+    },
+    jwt: ({ user, token }) => {
+      if (user) {
+        token.user = user;
+      }
+
+      return token;
+    },
+    session: ({ session, token }) => {
+      if (token) {
+        session.user = token.user;
+      }
+
+      return session;
+    },
+  },
   secret: `UItTuD1HcGXIj8ZfHUswhYdNd40Lc325R8VlxQPUoR0=`,
 });

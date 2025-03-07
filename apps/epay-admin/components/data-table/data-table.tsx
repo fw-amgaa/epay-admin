@@ -14,18 +14,7 @@ import { getCommonPinningStyles } from "@/lib/data-table";
 import { cn } from "@/lib/utils";
 
 interface DataTableProps<TData> extends React.HTMLAttributes<HTMLDivElement> {
-  /**
-   * The table instance returned from useDataTable hook with pagination, sorting, filtering, etc.
-   * @type TanstackTable<TData>
-   */
   table: TanstackTable<TData>;
-
-  /**
-   * The floating bar to render at the bottom of the table on row selection.
-   * @default null
-   * @type React.ReactNode | null
-   * @example floatingBar={<TasksTableFloatingBar table={table} />}
-   */
   floatingBar?: React.ReactNode | null;
 }
 

@@ -20,7 +20,9 @@ export const Menu = ({ label, menuItems }: Props) => {
       <SidebarMenu>
         {menuItems.map(({ key, children, list, meta }) => {
           const isSelected = key === selectedKey || !!children.find((child) => child.key === selectedKey);
-          const Icon: React.ReactElement = meta?.icon ? cloneElement(meta?.icon as any, { color: isSelected ? "#e04e61" : "#3F3F46" }) : <></>
+          const Icon: React.ReactElement = meta?.icon ? cloneElement(meta?.icon as React.DetailedReactHTMLElement<{
+            color: string;
+          }, HTMLElement>, { color: isSelected ? "#e04e61" : "#3F3F46" }) : <></>
 
           if (!list) {
             return <Collapsible
@@ -58,7 +60,7 @@ export const Menu = ({ label, menuItems }: Props) => {
           }
 
           return <SidebarMenuItem key={meta?.label}>
-            <SidebarMenuButton isActive={isSelected} asChild>
+            <SidebarMenuButton tooltip={meta?.label} isActive={isSelected} asChild>
               <a href={list as string}>
                 {Icon}
                 <span className={isSelected ? "text-primary" : ''}>{meta?.label}</span>

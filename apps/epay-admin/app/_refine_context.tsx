@@ -31,14 +31,32 @@ const App = (props: React.PropsWithChildren<AppProps>) => {
   const to = usePathname();
 
   const authProvider: AuthProvider = {
-    login: async () => {
-      signIn("auth0", {
+    login: async ({ identifier, password }: { identifier: string, password: string }) => {
+      const signUpResponse = await signIn("credentials", {
+        identifier,
+        password,
         callbackUrl: to ? to.toString() : "/",
-        redirect: true,
+        redirect: false,
       });
 
+      if (!signUpResponse) {
+        return {
+          success: false,
+        };
+      }
+
+      const { ok, error } = signUpResponse;
+
+      if (ok) {
+        return {
+          success: true,
+          redirectTo: "/",
+        };
+      }
+
       return {
-        success: true,
+        success: false,
+        error: new Error(error?.toString()),
       };
     },
     logout: async () => {
@@ -51,7 +69,7 @@ const App = (props: React.PropsWithChildren<AppProps>) => {
         success: true,
       };
     },
-    onError: async (error) => {
+    onError: async (error: any) => {
       if (error.response?.status === 401) {
         return {
           logout: true,
@@ -81,8 +99,7 @@ const App = (props: React.PropsWithChildren<AppProps>) => {
       if (data?.user) {
         const { user } = data;
         return {
-          name: user.name,
-          avatar: user.image,
+          name: user.username,
         };
       }
 
@@ -90,14 +107,12 @@ const App = (props: React.PropsWithChildren<AppProps>) => {
     },
   };
 
-  const API_URL = "https://dev-switch.epayment.mn";
-
   return (
     <>
       <RefineKbarProvider>
         <Refine
           routerProvider={routerProvider}
-          dataProvider={{ default: dataProvider(API_URL) }}
+          dataProvider={{ default: dataProvider(process.env.API_URL!) }}
           authProvider={authProvider}
           resources={resources}
           options={{

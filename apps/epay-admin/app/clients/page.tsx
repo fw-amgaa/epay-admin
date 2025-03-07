@@ -4,7 +4,7 @@ import { Shell } from "@/components/ui/shell";
 import { Skeleton } from "@/components/ui/skeleton";
 import React from "react";
 import { ClientsTable } from "./_components/clients-table";
-import { FeatureFlagsProvider } from "./_components/feature-flags-provider";
+import { FeatureFlagsProvider } from "@/components/data-table/data-table-feature-flags";
 
 export default async function Page() {
   return (

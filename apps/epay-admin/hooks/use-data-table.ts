@@ -1,6 +1,6 @@
 "use client";
 
-import type { DataTableFilterField, ExtendedSortingState } from "@/types";
+import type { DataTableFilterField, ExtendedSortingState } from "@/types/data-table";
 import {
   type ColumnFiltersState,
   type PaginationState,
@@ -16,8 +16,8 @@ import {
   getFilteredRowModel,
   getPaginationRowModel,
   getSortedRowModel,
+  useReactTable,
 } from "@tanstack/react-table";
-import { useTable } from "@refinedev/react-table";
 import {
   type Parser,
   type UseQueryStateOptions,
@@ -34,15 +34,15 @@ import { getSortingStateParser } from "@/lib/parsers";
 
 interface UseDataTableProps<TData>
   extends Omit<
-      TableOptions<TData>,
-      | "state"
-      | "pageCount"
-      | "getCoreRowModel"
-      | "manualFiltering"
-      | "manualPagination"
-      | "manualSorting"
-    >,
-    Required<Pick<TableOptions<TData>, "pageCount">> {
+  TableOptions<TData>,
+  | "state"
+  | "pageCount"
+  | "getCoreRowModel"
+  | "manualFiltering"
+  | "manualPagination"
+  | "manualSorting"
+  >,
+  Required<Pick<TableOptions<TData>, "pageCount">> {
   filterFields?: DataTableFilterField<TData>[];
   history?: "push" | "replace";
   scroll?: boolean;
@@ -55,7 +55,6 @@ interface UseDataTableProps<TData>
   initialState?: Omit<Partial<TableState>, "sorting"> & {
     sorting?: ExtendedSortingState<TData>;
   };
-  resource: string
 }
 
 export function useDataTable<TData>({
@@ -64,7 +63,7 @@ export function useDataTable<TData>({
   enableAdvancedFilter = false,
   history = "replace",
   scroll = false,
-  shallow = true,
+  shallow = false,
   throttleMs = 50,
   debounceMs = 300,
   clearOnDefault = false,
@@ -142,7 +141,6 @@ export function useDataTable<TData>({
     debounceMs,
   );
 
-  // Paginate
   const pagination: PaginationState = {
     pageIndex: page - 1, // zero-based index -> one-based index
     pageSize: perPage,
@@ -159,7 +157,6 @@ export function useDataTable<TData>({
     }
   }
 
-  // Sort
   function onSortingChange(updaterOrValue: Updater<SortingState>) {
     if (typeof updaterOrValue === "function") {
       const newSorting = updaterOrValue(sorting) as ExtendedSortingState<TData>;
@@ -167,7 +164,6 @@ export function useDataTable<TData>({
     }
   }
 
-  // Filter
   const initialColumnFilters: ColumnFiltersState = React.useMemo(() => {
     return enableAdvancedFilter
       ? []
@@ -243,13 +239,13 @@ export function useDataTable<TData>({
     ],
   );
 
-  const table = useTable({
+  const table = useReactTable({
     ...props,
     initialState,
     pageCount,
     state: {
-      // pagination,
-      // sorting,
+      pagination,
+      sorting,
       columnVisibility,
       rowSelection,
       columnFilters: enableAdvancedFilter ? [] : columnFilters,
@@ -273,10 +269,6 @@ export function useDataTable<TData>({
     manualPagination: true,
     manualSorting: true,
     manualFiltering: true,
-    refineCoreProps: {
-      resource: props.resource,
-     
-    }
   });
 
   return { table };

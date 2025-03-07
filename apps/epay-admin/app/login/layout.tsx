@@ -5,19 +5,11 @@ import { auth } from "../../auth";
 export default async function LoginLayout({
   children,
 }: React.PropsWithChildren) {
-  const data = await getData();
+  const session = await auth();
 
-  if (data.session?.user) {
+  if (session?.user) {
     return redirect("/");
   }
 
   return <>{children}</>;
-}
-
-async function getData() {
-  const session = await auth();
-
-  return {
-    session,
-  };
 }

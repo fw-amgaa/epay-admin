@@ -1,6 +1,5 @@
 "use client";
 
-import type { DataTableAdvancedFilterField } from "@/types";
 import type { Table } from "@tanstack/react-table";
 import type * as React from "react";
 
@@ -8,6 +7,8 @@ import { DataTableFilterList } from "@/components/data-table/data-table-filter-l
 import { DataTableSortList } from "@/components/data-table/data-table-sort-list";
 import { DataTableViewOptions } from "@/components/data-table/data-table-view-options";
 import { cn } from "@/lib/utils";
+import { DataTableAdvancedFilterField } from "@/types/data-table";
+import { FeatureFlags } from "./data-table-feature-flags";
 
 interface DataTableAdvancedToolbarProps<TData>
   extends React.HTMLAttributes<HTMLDivElement> {
@@ -34,18 +35,21 @@ export function DataTableAdvancedToolbar<TData>({
       )}
       {...props}
     >
-      <div className="flex items-center gap-2">
-        <DataTableFilterList
-          table={table}
-          filterFields={filterFields}
-          debounceMs={debounceMs}
-          shallow={shallow}
-        />
-        <DataTableSortList
-          table={table}
-          debounceMs={debounceMs}
-          shallow={shallow}
-        />
+      <div className="flex gap-2">
+        <FeatureFlags />
+        <div className="flex items-center gap-2">
+          <DataTableFilterList
+            table={table}
+            filterFields={filterFields}
+            debounceMs={debounceMs}
+            shallow={shallow}
+          />
+          <DataTableSortList
+            table={table}
+            debounceMs={debounceMs}
+            shallow={shallow}
+          />
+        </div>
       </div>
       <div className="flex items-center gap-2">
         {children}

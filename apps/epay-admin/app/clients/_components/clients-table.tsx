@@ -9,19 +9,19 @@ import * as React from "react";
 
 import { DataTable } from "@/components/data-table/data-table";
 import { DataTableAdvancedToolbar } from "@/components/data-table/data-table-advanced-toolbar";
+import { useFeatureFlags } from "@/components/data-table/data-table-feature-flags";
+import { DataTableToolbar } from "@/components/data-table/data-table-toolbar";
 import { useDataTable } from "@/hooks/use-data-table";
 import { toSentenceCase } from "@/lib/utils";
-import { getPriorityIcon, getStatusIcon } from "../_lib/utils";
+import { Client } from "../_lib/types";
+import { getStatusIcon } from "../_lib/utils";
 import { getColumns } from "./clients-table-columns";
 import { TasksTableToolbarActions } from "./clients-table-toolbar-actions";
-import { useFeatureFlags } from "./feature-flags-provider";
-import { Client } from "../_lib/types";
-import { DataTableToolbar } from "@/components/data-table/data-table-toolbar";
 
 export function ClientsTable() {
   const { featureFlags } = useFeatureFlags();
 
-  const [rowAction, setRowAction] =
+  const [, setRowAction] =
     React.useState<DataTableRowAction<Client> | null>(null);
 
   const columns = React.useMemo(() => getColumns({ setRowAction }), []);
@@ -35,23 +35,13 @@ export function ClientsTable() {
     {
       id: "status",
       label: "Status",
-      options: [true, false].map((status) => ({
-        label: toSentenceCase(status ? "Active" : "Inactive"),
-        value: status ? "active" : "inactive",
-        icon: getStatusIcon(status ? "Active" : "Inactive"),
+      options: ['active, inactive'].map((status) => ({
+        label: toSentenceCase(status),
+        value: status,
+        icon: getStatusIcon(status as 'active' | 'inactive'),
         count: 50,
       })),
     },
-    // {
-    //   id: "status",
-    //   label: "Status",
-    //   options: Client.map((priority) => ({
-    //     label: toSentenceCase(priority),
-    //     value: priority,
-    //     icon: getPriorityIcon(priority),
-    //     count: 100,
-    //   })),
-    // },
   ];
 
   const advancedFilterFields: DataTableAdvancedFilterField<Client>[] = [
@@ -64,24 +54,13 @@ export function ClientsTable() {
       id: "status",
       label: "Status",
       type: "multi-select",
-      options: ['option1, option2'].map((status) => ({
+      options: ['active, inactive'].map((status) => ({
         label: toSentenceCase(status),
         value: status,
-        icon: getStatusIcon(status),
+        icon: getStatusIcon(status as 'active' | 'inactive'),
         count: 100,
       })),
     },
-    // {
-    //   id: "priority",
-    //   label: "Priority",
-    //   type: "multi-select",
-    //   options: ['option1, option2'].map((priority) => ({
-    //     label: toSentenceCase(priority),
-    //     value: priority,
-    //     icon: getPriorityIcon(priority),
-    //     count: 50,
-    //   })),
-    // },
     {
       id: "created_at",
       label: "Created at",
@@ -93,6 +72,7 @@ export function ClientsTable() {
 
   const { table } = useDataTable({
     columns,
+    pageCount: 10,
     filterFields,
     enableAdvancedFilter: enableAdvancedTable,
     initialState: {
@@ -106,27 +86,22 @@ export function ClientsTable() {
   });
 
   return (
-    <>
-      <DataTable
-        table={table}
-      // floatingBar={
-      //   enableFloatingBar ? <TasksTableFloatingBar table={table} /> : null
-      // }
-      >
-        {enableAdvancedTable ? (
-          <DataTableAdvancedToolbar
-            table={table}
-            filterFields={advancedFilterFields}
-            shallow={false}
-          >
-            <TasksTableToolbarActions table={table} />
-          </DataTableAdvancedToolbar>
-        ) : (
-          <DataTableToolbar table={table} filterFields={filterFields}>
-            <TasksTableToolbarActions table={table} />
-          </DataTableToolbar>
-        )}
-      </DataTable>
-    </>
+    <DataTable
+      table={table}
+    >
+      {enableAdvancedTable ? (
+        <DataTableAdvancedToolbar
+          table={table}
+          filterFields={advancedFilterFields}
+          shallow={false}
+        >
+          <TasksTableToolbarActions table={table} />
+        </DataTableAdvancedToolbar>
+      ) : (
+        <DataTableToolbar table={table} filterFields={filterFields}>
+          <TasksTableToolbarActions table={table} />
+        </DataTableToolbar>
+      )}
+    </DataTable>
   );
 }

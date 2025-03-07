@@ -1,12 +1,5 @@
 "use client";
 
-import type {
-  DataTableAdvancedFilterField,
-  Filter,
-  FilterOperator,
-  JoinOperator,
-  StringKeyOf,
-} from "@/types";
 import type { Table } from "@tanstack/react-table";
 import {
   CalendarIcon,
@@ -66,6 +59,7 @@ import { useDebouncedCallback } from "@/hooks/use-debounced-callback";
 import { getDefaultFilterOperator, getFilterOperators } from "@/lib/data-table";
 import { getFiltersStateParser } from "@/lib/parsers";
 import { cn, formatDate } from "@/lib/utils";
+import { DataTableAdvancedFilterField, Filter, FilterOperator, JoinOperator, StringKeyOf } from "@/types/data-table";
 
 interface DataTableFilterListProps<TData> {
   table: Table<TData>;
@@ -522,7 +516,7 @@ export function DataTableFilterList<TData>({
             aria-controls={`${id}-filter-dialog`}
           >
             <ListFilter className="size-3" aria-hidden="true" />
-            Filters
+            Шүүлтүүр
             {filters.length > 0 && (
               <Badge
                 variant="secondary"
@@ -543,12 +537,14 @@ export function DataTableFilterList<TData>({
           )}
         >
           {filters.length > 0 ? (
-            <h4 className="font-medium leading-none">Filters</h4>
+            <h4 className="font-medium leading-none">Шүүлтүүр</h4>
           ) : (
             <div className="flex flex-col gap-1">
-              <h4 className="font-medium leading-none">No filters applied</h4>
+              <h4 className="font-medium leading-none">
+                Шүүлтүүр байхгүй байна
+              </h4>
               <p className="text-muted-foreground text-sm">
-                Add filters to refine your results.
+                Үр дүнг нарийвчлахын тулд шүүлтүүр нэмнэ үү.
               </p>
             </div>
           )}
@@ -611,7 +607,7 @@ export function DataTableFilterList<TData>({
                             role="combobox"
                             aria-label="Select filter field"
                             aria-controls={fieldListboxId}
-                            className="h-8 w-32 justify-between gap-2 rounded focus:outline-none focus:ring-1 focus:ring-ring focus-visible:ring-0"
+                            className="h-8 w-40 justify-between gap-2 rounded focus:outline-none focus:ring-1 focus:ring-ring focus-visible:ring-0"
                           >
                             <span className="truncate">
                               {filterFields.find(
@@ -624,7 +620,7 @@ export function DataTableFilterList<TData>({
                         <PopoverContent
                           id={fieldListboxId}
                           align="start"
-                          className="w-40 p-0"
+                          className="w-50 p-0"
                           onCloseAutoFocus={() =>
                             document.getElementById(fieldTriggerId)?.focus({
                               preventScroll: true,
@@ -632,7 +628,7 @@ export function DataTableFilterList<TData>({
                           }
                         >
                           <Command>
-                            <CommandInput placeholder="Search fields..." />
+                            <CommandInput placeholder="Хайх..." />
                             <CommandList>
                               <CommandEmpty>No fields found.</CommandEmpty>
                               <CommandGroup>
@@ -749,7 +745,7 @@ export function DataTableFilterList<TData>({
               className="h-[1.85rem] rounded"
               onClick={addFilter}
             >
-              Add filter
+              Шүүлтүүр нэмэх
             </Button>
             {filters.length > 0 ? (
               <Button
@@ -761,7 +757,7 @@ export function DataTableFilterList<TData>({
                   void setJoinOperator("and");
                 }}
               >
-                Reset filters
+                Цэвэрлэх
               </Button>
             ) : null}
           </div>

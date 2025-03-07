@@ -10,6 +10,7 @@ import { DataTableViewOptions } from "@/components/data-table/data-table-view-op
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
+import { FeatureFlags } from "./data-table-feature-flags";
 
 interface DataTableToolbarProps<TData>
   extends React.HTMLAttributes<HTMLDivElement> {
@@ -48,7 +49,6 @@ export function DataTableToolbar<TData>({
 }: DataTableToolbarProps<TData>) {
   const isFiltered = table.getState().columnFilters.length > 0;
 
-  // Memoize computation of searchableColumns and filterableColumns
   const { searchableColumns, filterableColumns } = React.useMemo(() => {
     return {
       searchableColumns: filterFields.filter((field) => !field.options),
@@ -59,11 +59,12 @@ export function DataTableToolbar<TData>({
   return (
     <div
       className={cn(
-        "flex w-full items-center justify-between gap-2 overflow-auto p-1",
+        "flex w-full items-center gap-2 overflow-auto p-1",
         className,
       )}
       {...props}
     >
+      <FeatureFlags />
       <div className="flex flex-1 items-center gap-2">
         {searchableColumns.length > 0 &&
           searchableColumns.map(

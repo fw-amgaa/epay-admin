@@ -17,7 +17,7 @@ export type Client = {
     created_by: string;
     updated_by: string | null;
     status: boolean;
-    id: number;
+    id: string;
     code: string;
     bic: string;
     name: string;

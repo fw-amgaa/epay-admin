@@ -1,175 +1,57 @@
-"use client";
-
-import { useNavigation } from "@refinedev/core";
-import { useTable } from "@refinedev/react-table";
-import { ColumnDef, flexRender } from "@tanstack/react-table";
+import { DataTableSkeleton } from "@/components/data-table/data-table-skeleton";
+import { DateRangePicker } from "@/components/date-range-picker";
+import { Shell } from "@/components/ui/shell";
+import { Skeleton } from "@/components/ui/skeleton";
 import React from "react";
+import { TransactionsTable } from "./_components/transactions-table";
+import { FeatureFlagsProvider } from "@/components/data-table/data-table-feature-flags";
+import { getTransactions } from "./_lib/queries";
+import { getValidFilters } from "@/lib/data-table";
+import { searchParamsCache } from "./_lib/validations";
+import { SearchParams } from "@/types/data-table";
 
-export default function CategoryList() {
-  const columns = React.useMemo<ColumnDef<any>[]>(
-    () => [
-      {
-        id: "id",
-        accessorKey: "id",
-        header: "ID",
-      },
-      {
-        id: "title",
-        accessorKey: "title",
-        header: "Title",
-      },
-      {
-        id: "actions",
-        accessorKey: "id",
-        header: "Actions",
-        cell: function render({ getValue }) {
-          return (
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "row",
-                flexWrap: "wrap",
-                gap: "4px",
-              }}
-            >
-              <button
-                onClick={() => {
-                  show("categories", getValue() as string);
-                }}
-              >
-                Show
-              </button>
-              <button
-                onClick={() => {
-                  edit("categories", getValue() as string);
-                }}
-              >
-                Edit
-              </button>
-            </div>
-          );
-        },
-      },
-    ],
-    []
-  );
+interface Props {
+  searchParams: Promise<SearchParams>;
+}
 
-  const { edit, show, create } = useNavigation();
 
-  const {
-    getHeaderGroups,
-    getRowModel,
-    setOptions,
-    getState,
-    setPageIndex,
-    getCanPreviousPage,
-    getPageCount,
-    getCanNextPage,
-    nextPage,
-    previousPage,
-    setPageSize,
-  } = useTable({
-    columns,
-  });
+export default async function Page(props: Props) {
+  const searchParams = await props.searchParams;
+  const search = searchParamsCache.parse(searchParams);
 
-  setOptions((prev) => ({
-    ...prev,
-    meta: {
-      ...prev.meta,
-    },
-  }));
+  const validFilters = getValidFilters(search.filters);
+
+  const promises = Promise.all([
+    getTransactions({
+      ...search,
+      filters: validFilters,
+    }),
+  ]);
 
   return (
-    <div style={{ padding: "16px" }}>
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-        }}
-      >
-        <h1>List</h1>
-        <button onClick={() => create("categories")}>Create</button>
-      </div>
-      <div style={{ maxWidth: "100%", overflowY: "scroll" }}>
-        <table>
-          <thead>
-            {getHeaderGroups().map((headerGroup) => (
-              <tr key={headerGroup.id}>
-                {headerGroup.headers.map((header) => (
-                  <th key={header.id}>
-                    {!header.isPlaceholder &&
-                      flexRender(
-                        header.column.columnDef.header,
-                        header.getContext()
-                      )}
-                  </th>
-                ))}
-              </tr>
-            ))}
-          </thead>
-          <tbody>
-            {getRowModel().rows.map((row) => (
-              <tr key={row.id}>
-                {row.getVisibleCells().map((cell) => (
-                  <td key={cell.id}>
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </td>
-                ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-      <div style={{ marginTop: "12px" }}>
-        <button
-          onClick={() => setPageIndex(0)}
-          disabled={!getCanPreviousPage()}
-        >
-          {"<<"}
-        </button>
-        <button onClick={() => previousPage()} disabled={!getCanPreviousPage()}>
-          {"<"}
-        </button>
-        <button onClick={() => nextPage()} disabled={!getCanNextPage()}>
-          {">"}
-        </button>
-        <button
-          onClick={() => setPageIndex(getPageCount() - 1)}
-          disabled={!getCanNextPage()}
-        >
-          {">>"}
-        </button>
-        <span>
-          <strong>
-            {" "}
-            {getState().pagination.pageIndex + 1} / {getPageCount()}{" "}
-          </strong>
-        </span>
-        <span>
-          | Go:{" "}
-          <input
-            type="number"
-            defaultValue={getState().pagination.pageIndex + 1}
-            onChange={(e) => {
-              const page = e.target.value ? Number(e.target.value) - 1 : 0;
-              setPageIndex(page);
-            }}
+    <Shell className="gap-2">
+      <FeatureFlagsProvider>
+        <React.Suspense fallback={<Skeleton className="h-7 w-52" />}>
+          <DateRangePicker
+            triggerSize="sm"
+            triggerClassName="w-56 sm:w-60"
+            shallow={false}
           />
-        </span>{" "}
-        <select
-          value={getState().pagination.pageSize}
-          onChange={(e) => {
-            setPageSize(Number(e.target.value));
-          }}
+        </React.Suspense>
+        <React.Suspense
+          fallback={
+            <DataTableSkeleton
+              columnCount={6}
+              searchableColumnCount={1}
+              filterableColumnCount={2}
+              cellWidths={["10rem", "40rem", "12rem", "12rem", "8rem", "8rem"]}
+              shrinkZero
+            />
+          }
         >
-          {[10, 20, 30, 40, 50].map((pageSize) => (
-            <option key={pageSize} value={pageSize}>
-              Show {pageSize}
-            </option>
-          ))}
-        </select>
-      </div>
-    </div>
+          <TransactionsTable promises={promises} />
+        </React.Suspense>
+      </FeatureFlagsProvider>
+    </Shell>
   );
 }
