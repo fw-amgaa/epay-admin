@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: epay-admin-new
+  labels:
+    app: epay-admin-new
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: epay-admin-new
+  template:
+    metadata:
+      labels:
+        app: epay-admin-new
+    spec:
+      containers:
+        - name: epay-admin-new
+          image: docker-image-repository
+          ports:
+            - containerPort: 3000
+          env:
+            - name: NODE_ENV
+              value: "production"
+            - name: API_URL
+              value: backend-url
+      imagePullSecrets:
+        - name: epay-secret
+      restartPolicy: Always
