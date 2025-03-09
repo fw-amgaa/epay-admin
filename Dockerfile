@@ -1,6 +1,8 @@
-
-# Use official Strapi image or Node.js to build
+# Use official Node.js image
 FROM node:20-alpine
+
+# Install PNPM
+RUN corepack enable && corepack prepare pnpm@latest --activate
 
 # Set working directory
 WORKDIR /app
