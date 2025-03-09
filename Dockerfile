@@ -1,8 +1,8 @@
 # Use official Node.js image
 FROM node:20-alpine
 
-# Install PNPM
-RUN corepack enable && corepack prepare pnpm@latest --activate
+# Install PNPM globally
+RUN npm install -g pnpm
 
 # Set working directory
 WORKDIR /app
