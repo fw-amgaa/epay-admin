@@ -15,7 +15,7 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
     CredentialsProvider({
       id: "credentials",
       type: "credentials",
-      credentials: {  
+      credentials: {
         identifier: {
           label: "Identifier",
           type: "email",
@@ -23,7 +23,7 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
         password: {
           label: "Password",
           type: "password",
-        }, 
+        },
       },
       async authorize(credentials) {
         const { identifier, password } = await signInSchema.parseAsync(credentials);
@@ -37,16 +37,21 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
           body: JSON.stringify({ identifier, password })
         })
 
+        // console.log(identifier, password);
+        // console.log('response.status', response.status);
+
+
         if (response.status !== 200) {
           return { error: authError };
         }
 
         const body = await response.json()
+        // console.log('body:', body);
 
         return { ...body.user, jwt: body.jwt };
       },
     }),
-    
+
   ],
   callbacks: {
     async signIn({ user }: any) {
