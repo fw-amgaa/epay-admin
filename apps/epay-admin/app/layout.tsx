@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import { RefineContext } from './_refine_context';
 import './globals.css';
+import { Suspense } from 'react';
 
 const geistSans = Geist({
     variable: '--font-geist-sans',
@@ -26,7 +27,9 @@ export default function RootLayout({
     return (
         <html lang="en">
             <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-                <RefineContext>{children}</RefineContext>
+                <Suspense>
+                    <RefineContext>{children}</RefineContext>
+                </Suspense>
             </body>
         </html>
     );

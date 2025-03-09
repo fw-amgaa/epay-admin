@@ -6,7 +6,7 @@ import { Transaction } from './types';
 import { bankOptions } from '@/lib/bank-codes';
 
 export const searchParamsCache = createSearchParamsCache({
-    flags: parseAsArrayOf(z.enum(['advancedTable', 'floatingBar'])).withDefault([]),
+    featureFlags: parseAsArrayOf(z.enum(['advancedTable', 'floatingBar'])).withDefault([]),
     page: parseAsInteger.withDefault(1),
     perPage: parseAsInteger.withDefault(10),
     sort: getSortingStateParser<Transaction>().withDefault([{ id: 'createdAt', desc: true }]),
