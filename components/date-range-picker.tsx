@@ -1,7 +1,7 @@
 "use client";
 
 import { format } from "date-fns";
-import { CalendarIcon } from "lucide-react";
+import { CalendarIcon, X } from "lucide-react";
 import { parseAsString, useQueryStates } from "nuqs";
 import * as React from "react";
 import type { DateRange } from "react-day-picker";
@@ -74,14 +74,14 @@ export function DateRangePicker({
   const [dateParams, setDateParams] = useQueryStates(
     {
       from: parseAsString.withDefault(
-        defaultDateRange?.from?.toISOString() ?? "",
+        defaultDateRange?.from?.toISOString() ?? ""
       ),
       to: parseAsString.withDefault(defaultDateRange?.to?.toISOString() ?? ""),
     },
     {
       clearOnDefault: true,
       shallow,
-    },
+    }
   );
 
   const date = React.useMemo(() => {
@@ -98,7 +98,7 @@ export function DateRangePicker({
   }, [dateParams, defaultDateRange]);
 
   return (
-    <div className="grid gap-2">
+    <div className="flex gap-2 items-center">
       <Popover>
         <PopoverTrigger asChild>
           <Button
@@ -107,7 +107,7 @@ export function DateRangePicker({
             className={cn(
               "w-full justify-start gap-2 truncate text-left font-normal",
               !date && "text-muted-foreground",
-              triggerClassName,
+              triggerClassName
             )}
           >
             <CalendarIcon className="size-4" />
@@ -141,6 +141,19 @@ export function DateRangePicker({
           />
         </PopoverContent>
       </Popover>
+      {dateParams.from && dateParams.to && (
+        <X
+          onClick={() => {
+            void setDateParams({
+              from: "",
+              to: "",
+            });
+          }}
+          size={16}
+          color="black"
+          className="cursor-pointer"
+        />
+      )}
     </div>
   );
 }
