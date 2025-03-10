@@ -13,7 +13,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { cn } from "@/lib/utils";
+import { cn, formatToLocalDate } from "@/lib/utils";
 
 interface DateRangePickerProps
   extends React.ComponentPropsWithoutRef<typeof PopoverContent> {
@@ -133,8 +133,10 @@ export function DateRangePicker({
             selected={date}
             onSelect={(newDateRange) => {
               void setDateParams({
-                from: newDateRange?.from?.toISOString() ?? "",
-                to: newDateRange?.to?.toISOString() ?? "",
+                from: newDateRange?.from
+                  ? formatToLocalDate(newDateRange.from)
+                  : "",
+                to: newDateRange?.to ? formatToLocalDate(newDateRange.to) : "",
               });
             }}
             numberOfMonths={2}

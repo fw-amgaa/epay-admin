@@ -18,7 +18,6 @@ export default async function Page(props: Props) {
   const searchParams = await props.searchParams;
   const search = searchParamsCache.parse(searchParams);
 
-  console.log("", search);
   const validFilters = getValidFilters(search.filters);
 
   const promises = Promise.all([
@@ -39,10 +38,11 @@ export default async function Page(props: Props) {
           />
         </React.Suspense>
         <React.Suspense
+          key={search.toString()}
           fallback={
             <DataTableSkeleton
               columnCount={6}
-              searchableColumnCount={1}
+              searchableColumnCount={0}
               filterableColumnCount={2}
               cellWidths={["10rem", "40rem", "12rem", "12rem", "8rem", "8rem"]}
               shrinkZero

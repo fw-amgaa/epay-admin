@@ -1,13 +1,13 @@
-import { clsx, type ClassValue } from "clsx"
-import { twMerge } from "tailwind-merge"
+import { clsx, type ClassValue } from "clsx";
+import { twMerge } from "tailwind-merge";
 
 export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs))
+  return twMerge(clsx(inputs));
 }
 
 export function formatDate(
   date: Date | string | number,
-  opts: Intl.DateTimeFormatOptions = {},
+  opts: Intl.DateTimeFormatOptions = {}
 ) {
   return new Intl.DateTimeFormat("en-US", {
     month: opts.month ?? "long",
@@ -15,6 +15,16 @@ export function formatDate(
     year: opts.year ?? "numeric",
     ...opts,
   }).format(new Date(date));
+}
+
+export function formatToLocalDate(date: Date) {
+  return (
+    date.getFullYear() +
+    "-" +
+    String(date.getMonth() + 1).padStart(2, "0") +
+    "-" +
+    String(date.getDate()).padStart(2, "0")
+  );
 }
 
 export function toSentenceCase(str: string) {
@@ -40,7 +50,7 @@ export function currencyFormat(num: number, fixed: number | undefined = 2) {
 export function composeEventHandlers<E>(
   originalEventHandler?: (event: E) => void,
   ourEventHandler?: (event: E) => void,
-  { checkForDefaultPrevented = true } = {},
+  { checkForDefaultPrevented = true } = {}
 ) {
   return function handleEvent(event: E) {
     originalEventHandler?.(event);

@@ -15,9 +15,8 @@ export const buildStrapiQueryParams = (input: GetTransactionsParams) => {
     queryParams.append("sort", strapiSort);
   }
 
-  // Adjust date range
-  const fromDate = input.from ? new Date(input.from) : null;
-  let toDate = input.to ? new Date(input.to) : null;
+  const fromDate = input.from ? new Date(input.from + "T00:00:00") : null; // Set time to 00:00:00
+  let toDate = input.to ? new Date(input.to + "T23:59:59") : null; // Set time to 23:59:59
 
   if (fromDate && toDate) {
     // If both from and to are present, add 1 day to toDate
@@ -26,6 +25,7 @@ export const buildStrapiQueryParams = (input: GetTransactionsParams) => {
     // If only from is present, set toDate as fromDate + 1 day
     toDate = new Date(fromDate);
     toDate.setDate(toDate.getDate() + 1);
+    toDate.setHours(23, 59, 59); // Set to 23:59:59
   }
 
   let filterIndex = 0;

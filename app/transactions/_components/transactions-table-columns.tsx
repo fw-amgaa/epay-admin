@@ -193,7 +193,9 @@ export function getColumns({}: GetColumnsProps): ColumnDef<Transaction>[] {
           <div className="flex space-x-2">
             {label && <Badge variant="outline">{label}</Badge>}
             <span className="max-w-[31.25rem] truncate font-medium">
-              {moment(row.getValue("createdAt")).format("YYYY/MM/DD HH:mm")}
+              {moment(row.getValue("createdAt"))
+                .utc()
+                .format("YYYY/MM/DD HH:mm")}
             </span>
           </div>
         );
