@@ -14,6 +14,10 @@ RUN pnpm install --frozen-lockfile
 # Copy the rest of the application
 COPY . .
 
+# Set environment variables for the build
+ENV NODE_ENV=production
+ENV NEXT_PUBLIC_API_URL=https://dev-cms.epayment.mn/api
+
 # Build Nextjs
 RUN pnpm run build
 
