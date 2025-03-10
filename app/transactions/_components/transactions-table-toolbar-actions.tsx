@@ -7,7 +7,6 @@ import { Button } from "@/components/ui/button";
 import { exportTableToCSV } from "@/lib/export";
 import { Transaction } from "../_lib/types";
 
-
 interface TransactionsTableToolbarActionsProps {
   table: Table<Transaction>;
 }
@@ -29,7 +28,7 @@ export function TransactionsTableToolbarActions({
         className="gap-2"
       >
         <Download className="size-4" aria-hidden="true" />
-        Export
+        Экспорт
       </Button>
     </div>
   );

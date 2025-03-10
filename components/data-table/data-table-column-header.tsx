@@ -2,7 +2,13 @@
 
 import { SelectIcon } from "@radix-ui/react-select";
 import type { Column } from "@tanstack/react-table";
-import { ArrowDown, ArrowUp, ChevronsUpDown, EyeOff } from "lucide-react";
+import {
+  ArrowDown,
+  ArrowUp,
+  ChevronsUpDown,
+  EyeIcon,
+  EyeOff,
+} from "lucide-react";
 
 import {
   Select,
@@ -38,8 +44,8 @@ export function DataTableColumnHeader<TData, TValue>({
           column.getIsSorted() === "desc"
             ? descValue
             : column.getIsSorted() === "asc"
-              ? ascValue
-              : undefined
+            ? ascValue
+            : undefined
         }
         onValueChange={(value) => {
           if (value === ascValue) column.toggleSorting(false);
@@ -52,19 +58,23 @@ export function DataTableColumnHeader<TData, TValue>({
             column.getIsSorted() === "desc"
               ? "Sorted descending. Click to sort ascending."
               : column.getIsSorted() === "asc"
-                ? "Sorted ascending. Click to sort descending."
-                : "Not sorted. Click to sort ascending."
+              ? "Sorted ascending. Click to sort descending."
+              : "Not sorted. Click to sort ascending."
           }
           className="-ml-3 h-8 w-fit border-none text-xs hover:bg-accent hover:text-accent-foreground data-[state=open]:bg-accent [&>svg:last-child]:hidden"
         >
           {title}
           <SelectIcon asChild>
-            {column.getCanSort() && column.getIsSorted() === "desc" ? (
-              <ArrowDown className="ml-2.5 size-4" aria-hidden="true" />
-            ) : column.getIsSorted() === "asc" ? (
-              <ArrowUp className="ml-2.5 size-4" aria-hidden="true" />
+            {column.getCanSort() ? (
+              column.getIsSorted() === "desc" ? (
+                <ArrowDown className="ml-2.5 size-4" aria-hidden="true" />
+              ) : column.getIsSorted() === "asc" ? (
+                <ArrowUp className="ml-2.5 size-4" aria-hidden="true" />
+              ) : (
+                <ChevronsUpDown className="ml-2.5 size-4" aria-hidden="true" />
+              )
             ) : (
-              <ChevronsUpDown className="ml-2.5 size-4" aria-hidden="true" />
+              <EyeIcon className="ml-2.5 size-4" aria-hidden="true" />
             )}
           </SelectIcon>
         </SelectTrigger>
@@ -77,7 +87,7 @@ export function DataTableColumnHeader<TData, TValue>({
                     className="mr-2 size-3.5 text-muted-foreground/70"
                     aria-hidden="true"
                   />
-                  Asc
+                  Өсөх
                 </span>
               </SelectItem>
               <SelectItem value={descValue}>
@@ -86,7 +96,7 @@ export function DataTableColumnHeader<TData, TValue>({
                     className="mr-2 size-3.5 text-muted-foreground/70"
                     aria-hidden="true"
                   />
-                  Desc
+                  Буурах
                 </span>
               </SelectItem>
             </>
@@ -98,7 +108,7 @@ export function DataTableColumnHeader<TData, TValue>({
                   className="mr-2 size-3.5 text-muted-foreground/70"
                   aria-hidden="true"
                 />
-                Hide
+                Нуух
               </span>
             </SelectItem>
           )}

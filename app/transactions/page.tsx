@@ -9,6 +9,9 @@ import { getTransactions } from "./_lib/queries";
 import { getValidFilters } from "@/lib/data-table";
 import { searchParamsCache } from "./_lib/validations";
 import { SearchParams } from "@/types/data-table";
+// import { Button } from "@/components/ui/button";
+// import { SearchIcon } from "lucide-react";
+// import { revalidatePath } from "next/cache";
 
 interface Props {
   searchParams: Promise<SearchParams>;
@@ -31,11 +34,22 @@ export default async function Page(props: Props) {
     <Shell className="gap-2">
       <FeatureFlagsProvider>
         <React.Suspense fallback={<Skeleton className="h-7 w-52" />}>
-          <DateRangePicker
-            triggerSize="sm"
-            triggerClassName="w-56 sm:w-60"
-            shallow={false}
-          />
+          <div className="flex items-center space-x-2">
+            <DateRangePicker
+              triggerSize="sm"
+              triggerClassName="w-56 sm:w-60"
+              shallow={false}
+            />
+
+            {/* <Button
+              size={"sm"}
+              onClick={() => {
+                revalidatePath("/transactions");
+              }}
+            >
+              <SearchIcon /> Хайх
+            </Button> */}
+          </div>
         </React.Suspense>
         <React.Suspense
           fallback={

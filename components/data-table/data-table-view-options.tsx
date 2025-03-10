@@ -41,19 +41,19 @@ export function DataTableViewOptions<TData>({
           className="ml-auto hidden h-8 gap-2 focus:outline-none focus:ring-1 focus:ring-ring focus-visible:ring-0 lg:flex"
         >
           <Settings2 className="size-4" />
-          Харах
+          Харах баганууд
           <ChevronsUpDown className="ml-auto size-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
       <PopoverContent
         align="end"
-        className="w-44 p-0"
+        className="w-52 p-0"
         onCloseAutoFocus={() => triggerRef.current?.focus()}
       >
         <Command>
-          <CommandInput placeholder="Search columns..." />
+          <CommandInput placeholder="Багана хайх..." />
           <CommandList>
-            <CommandEmpty>No columns found.</CommandEmpty>
+            <CommandEmpty>Багана олдсонгүй.</CommandEmpty>
             <CommandGroup>
               {table
                 .getAllColumns()
@@ -63,6 +63,7 @@ export function DataTableViewOptions<TData>({
                     column.getCanHide()
                 )
                 .map((column) => {
+                  console.log("coli,n", column);
                   return (
                     <CommandItem
                       key={column.id}
@@ -71,7 +72,8 @@ export function DataTableViewOptions<TData>({
                       }
                     >
                       <span className="truncate">
-                        {toSentenceCase(column.id)}
+                        {column.columnDef.meta?.title ||
+                          toSentenceCase(column.id)}
                       </span>
                       <Check
                         className={cn(

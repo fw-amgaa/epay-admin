@@ -91,7 +91,7 @@ export function TransactionsTable({ promises }: TransactionsTableProps) {
     },
     {
       id: "is_approved",
-      label: "Статус",
+      label: "Төлөв",
       type: "multi-select",
       options: [true, false].map((status) => ({
         label: toSentenceCase(status ? "Matched" : "Mismatched"),

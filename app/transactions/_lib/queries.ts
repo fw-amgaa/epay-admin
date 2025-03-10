@@ -1,50 +1,45 @@
-import 'server-only';
+import "server-only";
 
-import { unstable_cache } from '@/lib/unstable-cache';
-import { GetTransactionsParams } from './validations';
-import { auth } from '@/auth';
-import { TransactionListApiResponse } from './types';
-import { buildStrapiQueryParams } from './build-strapi-query';
+import { GetTransactionsParams } from "./validations";
+import { auth } from "@/auth";
+import { TransactionListApiResponse } from "./types";
+import { buildStrapiQueryParams } from "./build-strapi-query";
 
-export async function getTransactions(input: GetTransactionsParams): Promise<TransactionListApiResponse> {
-    const session = await auth();
-    const queryParams = buildStrapiQueryParams(input);
+export async function getTransactions(
+  input: GetTransactionsParams
+): Promise<TransactionListApiResponse> {
+  const session = await auth();
+  const queryParams = buildStrapiQueryParams(input);
 
-    return await unstable_cache(
-        async () => {
-            try {
-                const response = await fetch(`${process.env.API_URL}/transactions?${queryParams.toString()}`, {
-                    headers: {
-                        Accept: 'application/json',
-                        'Content-Type': 'application/json',
-                        Authorization: 'Bearer ' + session?.user.jwt,
-                    },
-                });
-
-                if (!response.ok) {
-                    throw new Error(`HTTP error! Status: ${response.status}`);
-                }
-
-                const data = await response.json();
-                return data as TransactionListApiResponse;
-            } catch {
-                return {
-                    data: [],
-                    meta: {
-                        pagination: {
-                            total: 0,
-                            page: 1,
-                            pageSize: 10,
-                            pageCount: 0,
-                        },
-                    },
-                };
-            }
+  try {
+    const response = await fetch(
+      `${process.env.API_URL}/transactions?${queryParams.toString()}`,
+      {
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + session?.user.jwt,
         },
-        [JSON.stringify(input)],
-        {
-            revalidate: 3600,
-            tags: ['transactions'],
-        }
-    )();
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    return data as TransactionListApiResponse;
+  } catch {
+    return {
+      data: [],
+      meta: {
+        pagination: {
+          total: 0,
+          page: 1,
+          pageSize: 10,
+          pageCount: 0,
+        },
+      },
+    };
+  }
 }

@@ -30,8 +30,8 @@ export function DataTableAdvancedToolbar<TData>({
   return (
     <div
       className={cn(
-        "flex w-full items-center justify-between gap-2 overflow-auto p-1",
-        className,
+        "flex w-full items-center justify-between gap-2 overflow-auto py-1",
+        className
       )}
       {...props}
     >
