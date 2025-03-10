@@ -61,7 +61,7 @@ export function DataTableColumnHeader<TData, TValue>({
               ? "Sorted ascending. Click to sort descending."
               : "Not sorted. Click to sort ascending."
           }
-          className="-ml-3 h-8 w-fit border-none text-xs hover:bg-accent hover:text-accent-foreground data-[state=open]:bg-accent [&>svg:last-child]:hidden"
+          className="w-fit font-bold -ml-3 h-8 border-none text-xs hover:bg-accent hover:text-accent-foreground data-[state=open]:bg-accent [&>svg:last-child]:hidden whitespace-break-spaces"
         >
           {title}
           <SelectIcon asChild>

@@ -48,36 +48,38 @@ export function getColumns({}: GetColumnsProps): ColumnDef<Transaction>[] {
     },
     {
       meta: {
-        title: "Илгээгч харилцагч",
+        title: "Илгээгч банк",
       },
       accessorKey: "debitor_code",
       header: ({ column }) => (
-        <DataTableColumnHeader column={column} title="Илгээгч харилцагч" />
+        <DataTableColumnHeader column={column} title="Илгээгч банк" />
       ),
       cell: ({ row }) => <div>{getBankName(row.getValue("debitor_code"))}</div>,
       enableSorting: false,
     },
     {
       meta: {
-        title: "Илгээгчийн данс",
+        title: "Илгээгч дансний дугаар",
       },
       accessorKey: "debitor_account",
       header: ({ column }) => (
-        <DataTableColumnHeader column={column} title="Илгээгчийн данс" />
+        <DataTableColumnHeader column={column} title="Илгээгч дансний дугаар" />
       ),
-      cell: ({ row }) => <div>{row.getValue("debitor_account")}</div>,
+      cell: ({ row }) => (
+        <div className="w-32">{row.getValue("debitor_account")}</div>
+      ),
       enableSorting: false,
     },
     {
       meta: {
-        title: "Илгээгчийн нэр",
+        title: "Илгээгч дансны нэр",
       },
       accessorKey: "debitor_name",
       header: ({ column }) => (
-        <DataTableColumnHeader column={column} title="Илгээгчийн нэр" />
+        <DataTableColumnHeader column={column} title="Илгээгч дансны нэр" />
       ),
       cell: ({ row }) => (
-        <div className="w-36">{row.getValue("debitor_name")}</div>
+        <div className="w-28">{row.getValue("debitor_name")}</div>
       ),
       enableSorting: false,
     },
@@ -96,22 +98,30 @@ export function getColumns({}: GetColumnsProps): ColumnDef<Transaction>[] {
     },
     {
       meta: {
-        title: "Xүлээн авагчийн данс",
+        title: "Хүлээн авагч дансны дугаар",
       },
       accessorKey: "creditor_account",
       header: ({ column }) => (
-        <DataTableColumnHeader column={column} title="Xүлээн авагчийн данс" />
+        <DataTableColumnHeader
+          column={column}
+          title="Хүлээн авагч дансны дугаар"
+        />
       ),
-      cell: ({ row }) => <div>{row.getValue("creditor_account")}</div>,
+      cell: ({ row }) => (
+        <div className="w-32">{row.getValue("creditor_account")}</div>
+      ),
       enableSorting: false,
     },
     {
       meta: {
-        title: "Xүлээн авагчийн нэр",
+        title: "Хүлээн авагч дансны нэр",
       },
       accessorKey: "creditor_name",
       header: ({ column }) => (
-        <DataTableColumnHeader column={column} title="Xүлээн авагчийн нэр" />
+        <DataTableColumnHeader
+          column={column}
+          title="Хүлээн авагч дансны нэр"
+        />
       ),
       cell: ({ row }) => <div>{row.getValue("creditor_name")}</div>,
       enableSorting: false,
@@ -125,7 +135,7 @@ export function getColumns({}: GetColumnsProps): ColumnDef<Transaction>[] {
         <DataTableColumnHeader column={column} title="Гүйлгээний утга" />
       ),
       cell: ({ row }) => (
-        <div className="w-52">{row.getValue("description")}</div>
+        <div className="w-64">{row.getValue("description")}</div>
       ),
       enableSorting: false,
     },
