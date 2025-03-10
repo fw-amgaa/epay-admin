@@ -2,49 +2,31 @@
 
 import type {
   DataTableAdvancedFilterField,
-  DataTableFilterField,
   DataTableRowAction,
 } from "@/types/data-table";
 import * as React from "react";
 
 import { DataTable } from "@/components/data-table/data-table";
 import { DataTableAdvancedToolbar } from "@/components/data-table/data-table-advanced-toolbar";
-import { useFeatureFlags } from "@/components/data-table/data-table-feature-flags";
-import { DataTableToolbar } from "@/components/data-table/data-table-toolbar";
 import { useDataTable } from "@/hooks/use-data-table";
+import { bankOptions } from "@/lib/bank-codes";
 import { toSentenceCase } from "@/lib/utils";
+import { Transaction, TransactionListApiResponse } from "../_lib/types";
 import { getStatusIcon } from "../_lib/utils";
 import { getColumns } from "./transactions-table-columns";
 import { TransactionsTableToolbarActions } from "./transactions-table-toolbar-actions";
-import { Transaction, TransactionListApiResponse } from "../_lib/types";
-import { bankOptions } from "@/lib/bank-codes";
 
 interface TransactionsTableProps {
   promises: Promise<[Awaited<TransactionListApiResponse>]>;
 }
 
 export function TransactionsTable({ promises }: TransactionsTableProps) {
-  const { featureFlags } = useFeatureFlags();
-
   const [{ data, meta }] = React.use(promises);
 
   const [, setRowAction] =
     React.useState<DataTableRowAction<Transaction> | null>(null);
 
   const columns = React.useMemo(() => getColumns({ setRowAction }), []);
-
-  const filterFields: DataTableFilterField<Transaction>[] = [
-    {
-      id: "debitor_code",
-      label: "Илгээгч харилцагч",
-      options: bankOptions,
-    },
-    {
-      id: "creditor_code",
-      label: "Xүлээн авагч харилцагч",
-      options: bankOptions,
-    },
-  ];
 
   const advancedFilterFields: DataTableAdvancedFilterField<Transaction>[] = [
     {
@@ -101,14 +83,11 @@ export function TransactionsTable({ promises }: TransactionsTableProps) {
     },
   ];
 
-  const enableAdvancedTable = featureFlags.includes("advancedTable");
-
   const { table } = useDataTable({
     data,
     columns,
     pageCount: meta.pagination.pageCount,
-    filterFields,
-    enableAdvancedFilter: enableAdvancedTable,
+    enableAdvancedFilter: true,
     initialState: {
       sorting: [{ id: "createdAt", desc: true }],
       columnPinning: { right: ["actions"] },
@@ -120,19 +99,13 @@ export function TransactionsTable({ promises }: TransactionsTableProps) {
 
   return (
     <DataTable table={table}>
-      {enableAdvancedTable ? (
-        <DataTableAdvancedToolbar
-          table={table}
-          filterFields={advancedFilterFields}
-          shallow={false}
-        >
-          <TransactionsTableToolbarActions table={table} />
-        </DataTableAdvancedToolbar>
-      ) : (
-        <DataTableToolbar table={table} filterFields={filterFields}>
-          <TransactionsTableToolbarActions table={table} />
-        </DataTableToolbar>
-      )}
+      <DataTableAdvancedToolbar
+        table={table}
+        filterFields={advancedFilterFields}
+        shallow={false}
+      >
+        <TransactionsTableToolbarActions table={table} />
+      </DataTableAdvancedToolbar>
     </DataTable>
   );
 }

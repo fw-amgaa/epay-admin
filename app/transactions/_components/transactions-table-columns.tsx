@@ -174,9 +174,7 @@ export function getColumns({}: GetColumnsProps): ColumnDef<Transaction>[] {
           </div>
         );
       },
-      filterFn: (row, id, value) => {
-        return Array.isArray(value) && value.includes(row.getValue(id));
-      },
+      enableSorting: false,
     },
     {
       meta: {

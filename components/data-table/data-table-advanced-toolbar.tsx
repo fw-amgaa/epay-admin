@@ -8,7 +8,6 @@ import { DataTableSortList } from "@/components/data-table/data-table-sort-list"
 import { DataTableViewOptions } from "@/components/data-table/data-table-view-options";
 import { cn } from "@/lib/utils";
 import { DataTableAdvancedFilterField } from "@/types/data-table";
-import { FeatureFlags } from "./data-table-feature-flags";
 
 interface DataTableAdvancedToolbarProps<TData>
   extends React.HTMLAttributes<HTMLDivElement> {
@@ -36,7 +35,6 @@ export function DataTableAdvancedToolbar<TData>({
       {...props}
     >
       <div className="flex gap-2">
-        <FeatureFlags />
         <div className="flex items-center gap-2">
           <DataTableFilterList
             table={table}
