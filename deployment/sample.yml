@@ -22,8 +22,6 @@ spec:
           env:
             - name: NODE_ENV
               value: "production"
-            - name: API_URL
-              value: backend-url
       imagePullSecrets:
         - name: epay-secret
       restartPolicy: Always

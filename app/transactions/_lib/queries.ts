@@ -13,7 +13,7 @@ export async function getTransactions(
 
   try {
     const response = await fetch(
-      `${process.env.API_URL}/transactions?${queryParams.toString()}`,
+      `${process.env.NEXT_PUBLIC_API_URL}/transactions?${queryParams.toString()}`,
       {
         headers: {
           Accept: "application/json",

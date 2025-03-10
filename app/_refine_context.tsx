@@ -111,7 +111,7 @@ const App = (props: React.PropsWithChildren<AppProps>) => {
             <RefineKbarProvider>
                 <Refine
                     routerProvider={routerProvider}
-                    dataProvider={{ default: dataProvider(process.env.API_URL!) }}
+                    dataProvider={{ default: dataProvider(process.env.NEXT_PUBLIC_API_URL!) }}
                     authProvider={authProvider}
                     resources={resources}
                     options={{

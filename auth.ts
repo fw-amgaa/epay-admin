@@ -28,7 +28,7 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
             async authorize(credentials) {
                 const { identifier, password } = await signInSchema.parseAsync(credentials);
 
-                const response = await fetch(process.env.API_URL! + '/auth/local', {
+                const response = await fetch(process.env.NEXT_PUBLIC_API_URL! + '/auth/local', {
                     headers: {
                         Accept: 'application/json',
                         'Content-Type': 'application/json',
