@@ -41,7 +41,7 @@ export function DataTableViewOptions<TData>({
           className="ml-auto hidden h-8 gap-2 focus:outline-none focus:ring-1 focus:ring-ring focus-visible:ring-0 lg:flex"
         >
           <Settings2 className="size-4" />
-          View
+          Харах
           <ChevronsUpDown className="ml-auto size-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
@@ -60,7 +60,7 @@ export function DataTableViewOptions<TData>({
                 .filter(
                   (column) =>
                     typeof column.accessorFn !== "undefined" &&
-                    column.getCanHide(),
+                    column.getCanHide()
                 )
                 .map((column) => {
                   return (
@@ -76,7 +76,7 @@ export function DataTableViewOptions<TData>({
                       <Check
                         className={cn(
                           "ml-auto size-4 shrink-0",
-                          column.getIsVisible() ? "opacity-100" : "opacity-0",
+                          column.getIsVisible() ? "opacity-100" : "opacity-0"
                         )}
                       />
                     </CommandItem>

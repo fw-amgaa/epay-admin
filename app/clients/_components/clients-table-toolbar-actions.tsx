@@ -7,7 +7,6 @@ import { Button } from "@/components/ui/button";
 import { exportTableToCSV } from "@/lib/export";
 import { Client } from "../_lib/types";
 
-
 interface TasksTableToolbarActionsProps {
   table: Table<Client>;
 }
@@ -37,7 +36,7 @@ export function TasksTableToolbarActions({
         className="gap-2"
       >
         <Download className="size-4" aria-hidden="true" />
-        Export
+        Экспорт
       </Button>
       {/**
        * Other actions can be added here.
