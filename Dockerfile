@@ -18,11 +18,11 @@ COPY . .
 ENV NODE_ENV=production
 ENV API_URL=https://dev-cms.epayment.mn/api
 
-# Build Strapi
+# Build Nextjs
 RUN pnpm run build
 
 # Expose the Strapi port
 EXPOSE 3000
 
-# Start Strapi
+# Start Nextjs
 CMD ["pnpm", "start"]

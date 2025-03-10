@@ -18,6 +18,8 @@ export async function getDashboardData(
 ): Promise<DashboardApiResponse> {
   const session = await auth();
 
+  console.log("🚀 ~ API_URL:", process.env.API_URL);
+
   try {
     const response = await fetch(
       `${process.env.API_URL}/dashboard-data?${buildDashboardQueryString(
