@@ -19,7 +19,7 @@ ENV NODE_ENV=production
 ENV NEXTAUTH_URL=http://localhost:3000
 ENV NEXTAUTH_TRUST_HOST=true
 ENV API_URL=https://dev-cms.epayment.mn/api
-ENV NEXT_PUBLIC_APP_URL=http://localhost:3000
+ENV NEXT_PUBLIC_APP_URL=https://dev-admin1.epayment.mn/
 
 # Build Nextjs
 RUN pnpm run build
