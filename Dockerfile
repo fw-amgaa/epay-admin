@@ -16,8 +16,7 @@ COPY . .
 
 # Set environment variables for the build
 ENV NODE_ENV=production
-ENV NEXTAUTH_URL=https://dev-admin1.epayment.mn
-ENV NEXTAUTH_TRUST_HOST=true
+ENV NEXT_PUBLIC_APP_URL=http://localhost:3000
 ENV NEXT_PUBLIC_API_URL=https://dev-cms.epayment.mn/api
 
 # Build Nextjs
