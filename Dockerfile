@@ -16,7 +16,7 @@ COPY . .
 
 # Set environment variables for the build
 ENV NODE_ENV=production
-ENV NEXTAUTH_URL=https://dev-cms.epayment.mn/
+ENV NEXTAUTH_URL=https://dev-admin1.epayment.mn/
 ENV NEXTAUTH_TRUST_HOST=true
 ENV API_URL=https://dev-cms.epayment.mn/api
 ENV NEXT_PUBLIC_APP_URL=https://dev-admin1.epayment.mn/
