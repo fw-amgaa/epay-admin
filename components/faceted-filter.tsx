@@ -91,7 +91,7 @@ export function FacetedFilter({ title, options, value }: FacetedFilterProps) {
                     variant="secondary"
                     className="rounded-sm px-1 font-normal"
                   >
-                    {selectedValues.size} selected
+                    {selectedValues.size} сонгогдсон
                   </Badge>
                 ) : (
                   options
