@@ -1,18 +1,7 @@
 "use client";
 
-export default function Report() {
+import { NavigateToResource } from "@refinedev/nextjs-router";
 
-	return (
-		<div
-			style={{
-				height: "100vh",
-				display: "flex",
-				justifyContent: "center",
-				alignItems: "center",
-				flexDirection: "column",
-			}}
-		>
-			afhighoihip
-		</div>
-	);
+export default function Report() {
+  return <NavigateToResource />;
 }

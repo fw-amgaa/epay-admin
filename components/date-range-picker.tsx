@@ -17,48 +17,13 @@ import { cn, formatToLocalDate } from "@/lib/utils";
 
 interface DateRangePickerProps
   extends React.ComponentPropsWithoutRef<typeof PopoverContent> {
-  /**
-   * The selected date range.
-   * @default undefined
-   * @type DateRange
-   * @example { from: new Date(), to: new Date() }
-   */
   defaultDateRange?: DateRange;
-
-  /**
-   * The placeholder text of the calendar trigger button.
-   * @default "Pick a date"
-   * @type string | undefined
-   */
   placeholder?: string;
-
-  /**
-   * The variant of the calendar trigger button.
-   * @default "outline"
-   * @type "default" | "outline" | "secondary" | "ghost"
-   */
   triggerVariant?: Exclude<ButtonProps["variant"], "destructive" | "link">;
-
-  /**
-   * The size of the calendar trigger button.
-   * @default "default"
-   * @type "default" | "sm" | "lg"
-   */
   triggerSize?: Exclude<ButtonProps["size"], "icon">;
-
-  /**
-   * The class name of the calendar trigger button.
-   * @default undefined
-   * @type string
-   */
   triggerClassName?: string;
-
-  /**
-   * Controls whether query states are updated client-side only (default: true).
-   * Setting to `false` triggers a network request to update the querystring.
-   * @default true
-   */
   shallow?: boolean;
+  showClear?: boolean;
 }
 
 export function DateRangePicker({
@@ -68,6 +33,7 @@ export function DateRangePicker({
   triggerSize = "default",
   triggerClassName,
   shallow = true,
+  showClear = true,
   className,
   ...props
 }: DateRangePickerProps) {
@@ -143,7 +109,7 @@ export function DateRangePicker({
           />
         </PopoverContent>
       </Popover>
-      {dateParams.from && dateParams.to && (
+      {showClear && dateParams.from && dateParams.to && (
         <X
           onClick={() => {
             void setDateParams({

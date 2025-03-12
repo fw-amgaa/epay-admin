@@ -1,4 +1,4 @@
-"server only";
+"use server";
 
 import { auth } from "@/auth";
 import { GetDashboardParams } from "./validations";

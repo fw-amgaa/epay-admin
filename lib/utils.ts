@@ -44,8 +44,10 @@ export function currencyFormat(num: number, fixed: number | undefined = 2) {
   return formated;
 }
 
-export function numberFormat(num: number) {
-  const formated = num.toFixed(0)?.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+export function numberFormat(num: number, fixed: number = 0) {
+  const formated = num
+    .toFixed(fixed)
+    ?.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
 
   return formated;
 }
