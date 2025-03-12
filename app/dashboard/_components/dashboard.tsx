@@ -12,6 +12,8 @@ interface DashboardProps {
 export default function Dashboard({ dashboard }: DashboardProps) {
   const data = use(dashboard);
 
+  console.log("d", data);
+
   return (
     <div className="flex flex-1 flex-col space-y-4">
       <div className="grid gap-4 md:grid-cols-3">

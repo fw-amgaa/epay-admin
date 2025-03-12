@@ -1,4 +1,4 @@
-import "server-only";
+"server only";
 
 import { GetTransactionsParams } from "./validations";
 import { auth } from "@/auth";

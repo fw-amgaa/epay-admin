@@ -35,7 +35,7 @@ interface Props {
 }
 
 export function MatchBarChart({ data }: Props) {
-  const chartData = data.rows
+  const chartData = data
     .map((row) => {
       return {
         bank:

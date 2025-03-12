@@ -31,7 +31,7 @@ interface Props {
 }
 
 export function MatchPieChart({ data }: Props) {
-  const chartData = data.rows.map((row) => {
+  const chartData = data.map((row) => {
     const bank = bankOptions.find((bank) => bank.value === row.debitor_code);
     return {
       bank: bank?.label || row.debitor_code,
@@ -78,7 +78,7 @@ export function MatchPieChart({ data }: Props) {
                           y={viewBox.cy}
                           className="fill-foreground text-3xl font-bold"
                         >
-                          {data.rows.length}
+                          {data.length}
                         </tspan>
                         <tspan
                           x={viewBox.cx}

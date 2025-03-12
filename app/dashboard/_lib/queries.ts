@@ -18,8 +18,6 @@ export async function getDashboardData(
 ): Promise<DashboardApiResponse> {
   const session = await auth();
 
-  console.log("🚀 ~ API_URL:", process.env.API_URL);
-
   try {
     const response = await fetch(
       `${process.env.API_URL}/dashboard-data?${buildDashboardQueryString(
@@ -40,18 +38,13 @@ export async function getDashboardData(
 
     const data = await response.json();
     return data as DashboardApiResponse;
-  } catch {
+  } catch (error) {
+    console.error(error);
     return {
       totalTransactions: 0,
       matchedTransactions: 0,
       unmatchedTransactions: 0,
-      byClients: {
-        command: "",
-        rowCount: 0,
-        oid: null,
-        rows: [],
-        fields: [],
-      },
+      byClients: [],
     };
   }
 }
