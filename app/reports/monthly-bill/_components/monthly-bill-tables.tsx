@@ -90,7 +90,7 @@ export function MonthlyBillTables({ datas }: TransactionSummaryProps) {
                     {/* Daily summary row */}
                     <TableRow className="hover:bg-gray-50 bg-gray-50">
                       <TableCell
-                        className="py-2 px-4 text-xs font-medium text-right border-r"
+                        className="py-2 px-4 text-xs font-bold text-right border-r"
                         colSpan={5}
                       >
                         {d.transaction_day} -ны нийт гүйлгээ
@@ -163,7 +163,7 @@ export function MonthlyBillTables({ datas }: TransactionSummaryProps) {
                     {/* Daily summary row */}
                     <TableRow className="hover:bg-gray-50 bg-gray-50">
                       <TableCell
-                        className="py-2 px-4 text-xs font-medium text-right border-r"
+                        className="py-2 px-4 text-xs font-bold text-right border-r"
                         colSpan={5}
                       >
                         {d.transaction_day} -ны нийт гүйлгээ
