@@ -21,7 +21,7 @@ export function TransactionsTableToolbarActions({
         size="sm"
         onClick={() =>
           exportTableToCSV(table, {
-            filename: "tasks",
+            filename: "Transactions",
             excludeColumns: ["select", "actions"],
           })
         }
