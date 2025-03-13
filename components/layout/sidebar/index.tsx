@@ -1,6 +1,5 @@
 "use client";
 
-import { AudioWaveform, Command, GalleryVerticalEnd } from "lucide-react";
 import * as React from "react";
 
 import { TeamSwitcher } from "@/components/layout/sidebar/team-switcher";
@@ -13,30 +12,26 @@ import {
   SidebarRail,
 } from "@/components/ui/sidebar";
 import { useMenu } from "@refinedev/core";
+import EpayLogo from "./epay-logo";
 import { Menu } from "./menu";
 
 const data = {
-  user: {
-    name: "shadcn",
-    email: "m@example.com",
-    avatar: "/avatars/shadcn.jpg",
-  },
   teams: [
     {
       name: "E-Pay",
-      logo: GalleryVerticalEnd,
+      logo: EpayLogo,
       plan: "qPay dashboard",
     },
-    {
-      name: "Acme Corp.",
-      logo: AudioWaveform,
-      plan: "Startup",
-    },
-    {
-      name: "Evil Corp.",
-      logo: Command,
-      plan: "Free",
-    },
+    // {
+    //   name: "Acme Corp.",
+    //   logo: AudioWaveform,
+    //   plan: "Startup",
+    // },
+    // {
+    //   name: "Evil Corp.",
+    //   logo: Command,
+    //   plan: "Free",
+    // },
   ],
 };
 
@@ -55,7 +50,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         {/* <Menu label="Хэрэглэгч" menuItems={menuItems.filter(item => item.meta?.group === "user")} /> */}
       </SidebarContent>
       <SidebarFooter>
-        <User user={data.user} />
+        <User />
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>

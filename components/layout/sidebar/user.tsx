@@ -1,44 +1,29 @@
-"use client"
+"use client";
 
-import {
-  ChevronsUpDown,
-  LogOut
-} from "lucide-react"
+import { ChevronsUpDown, LogOut } from "lucide-react";
 
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from "@/components/ui/avatar"
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
-  DropdownMenuTrigger
-} from "@/components/ui/dropdown-menu"
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
   useSidebar,
-} from "@/components/ui/sidebar"
-import { useLogout } from "@refinedev/core"
-import { useSession } from "next-auth/react"
+} from "@/components/ui/sidebar";
+import { useLogout } from "@refinedev/core";
+import { useSession } from "next-auth/react";
 
-export function User({
-  user,
-}: {
-  user: {
-    name: string
-    email: string
-    avatar: string
-  }
-}) {
-  const { isMobile } = useSidebar()
+export function User() {
+  const { isMobile } = useSidebar();
   const { mutate: logout } = useLogout();
-  const { data: session } = useSession()
+  const { data: session } = useSession();
 
   return (
     <SidebarMenu>
@@ -50,11 +35,13 @@ export function User({
               className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
             >
               <Avatar className="h-8 w-8 rounded-lg">
-                <AvatarImage src={user.avatar} alt={session?.user.username} />
+                {/* <AvatarImage src={user.avatar} alt={session?.user.username} /> */}
                 <AvatarFallback className="rounded-lg">EP</AvatarFallback>
               </Avatar>
               <div className="grid flex-1 text-left text-sm leading-tight">
-                <span className="truncate font-semibold">{session?.user.username}</span>
+                <span className="truncate font-semibold">
+                  {session?.user.username}
+                </span>
                 <span className="truncate text-xs">{session?.user.email}</span>
               </div>
               <ChevronsUpDown className="ml-auto size-4" />
@@ -69,12 +56,16 @@ export function User({
             <DropdownMenuLabel className="p-0 font-normal">
               <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                 <Avatar className="h-8 w-8 rounded-lg">
-                  <AvatarImage src={user.avatar} alt={user.name} />
+                  {/* <AvatarImage src={user.avatar} alt={user.name} /> */}
                   <AvatarFallback className="rounded-lg">EP</AvatarFallback>
                 </Avatar>
                 <div className="grid flex-1 text-left text-sm leading-tight">
-                  <span className="truncate font-semibold">{session?.user.username}</span>
-                  <span className="truncate text-xs">{session?.user.email}</span>
+                  <span className="truncate font-semibold">
+                    {session?.user.username}
+                  </span>
+                  <span className="truncate text-xs">
+                    {session?.user.email}
+                  </span>
                 </div>
               </div>
             </DropdownMenuLabel>
@@ -109,5 +100,5 @@ export function User({
         </DropdownMenu>
       </SidebarMenuItem>
     </SidebarMenu>
-  )
+  );
 }

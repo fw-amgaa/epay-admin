@@ -1,19 +1,17 @@
 import { ResourceProps } from "@refinedev/core";
-import {
-  ChartPieIcon, DockIcon, LineChartIcon
-} from "lucide-react";
+import { ChartPieIcon, DockIcon, LineChartIcon } from "lucide-react";
 
 const resources: ResourceProps[] = [
   {
-      name: "Дашбоард",
-      list: "/dashboard",
-      meta: {
-        canDelete: true,
-        label: "Дашбоард",
-        icon: <LineChartIcon />,
-        group: 'system'
-      },
+    name: "Дашбоард",
+    list: "/dashboard",
+    meta: {
+      canDelete: true,
+      label: "Дашбоард",
+      icon: <LineChartIcon />,
+      group: "system",
     },
+  },
   // {
   //   name: "Систем холболт",
   //   list: "/connection",
@@ -44,7 +42,7 @@ const resources: ResourceProps[] = [
       canDelete: true,
       label: "Гүйлгээний мэдээлэл",
       icon: <DockIcon />,
-      group: 'system'
+      group: "system",
     },
   },
   // {
@@ -114,8 +112,8 @@ const resources: ResourceProps[] = [
     meta: {
       label: "Тайлан",
       icon: <ChartPieIcon />,
-      group: 'system'
-    }
+      group: "system",
+    },
   },
   {
     name: "Харилцагчийн шимтгэл тооцоо нэхэмжлэх тайлан",
@@ -124,7 +122,7 @@ const resources: ResourceProps[] = [
       parent: "Тайлан",
       label: "Харилцагчийн шимтгэл тооцоо нэхэмжлэх тайлан",
       canDelete: true,
-      group: 'system'
+      group: "system",
     },
   },
   {
@@ -134,7 +132,7 @@ const resources: ResourceProps[] = [
       parent: "Тайлан",
       label: "ePay-ийн баталгаажуулах тайлан",
       canDelete: true,
-      group: 'system'
+      group: "system",
     },
   },
   {
@@ -144,7 +142,27 @@ const resources: ResourceProps[] = [
       parent: "Тайлан",
       label: "ePay нэгдсэн хаалтын тайлан",
       canDelete: true,
-      group: 'system'
+      group: "system",
+    },
+  },
+  {
+    name: "ePay-ийн нийлбэр амжилттай гүйлгээний тайлан",
+    list: "/reports/successful-transactions",
+    meta: {
+      parent: "Тайлан",
+      label: "ePay-ийн нийлбэр амжилттай гүйлгээний тайлан",
+      canDelete: true,
+      group: "system",
+    },
+  },
+  {
+    name: "ePay-ийн нийлбэр амжилтгүй гүйлгээний тайлан",
+    list: "/reports/unsuccessful-transactions",
+    meta: {
+      parent: "Тайлан",
+      label: "ePay-ийн нийлбэр амжилтгүй гүйлгээний тайлан",
+      canDelete: true,
+      group: "system",
     },
   },
   // {
@@ -173,6 +191,6 @@ const resources: ResourceProps[] = [
   //     group: 'user'
   //   },
   // },
-]
+];
 
-export default resources
+export default resources;
